@@ -1,4 +1,4 @@
-package strategies;
+package ats.strategies;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class SMA {
 
 	private int SMA;
-	private ArrayList closingPriceSet; 
+	private ArrayList closingPriceSet;
 
 	public SMA() {
 		super();
@@ -16,7 +16,7 @@ public class SMA {
 	public int getSMA(int SMADuration) {
 
 		closingPriceSet = new ArrayList(SMADuration);
-		
+
 		// Generate closing price set for the past "SMADuration" days
 		for (int i = 0; i < SMADuration; i++) {
 			closingPriceSet.add(i, 0);

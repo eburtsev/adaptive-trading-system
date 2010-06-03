@@ -2,6 +2,14 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="C:/Program Files/Weka-3-6/weka-src.jar"/>
+	<classpathentry kind="lib" path="C:/Users/azam/Desktop/ATS/mckoi1.0.3/mckoidb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/azam/Desktop/ATS/mysql-connector-java-5.1.12/mysql-connector-java-5.1.12-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/azam/Desktop/ATS/hsqldb-2.0.0-rc9/hsqldb/lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/azam/Desktop/ATS/hsqldb-2.0.0-rc9/hsqldb/lib/sqltool.jar"/>
+	<classpathentry kind="lib" path="C:/Users/azam/Desktop/ATS/RmiJdbc/dist/lib/RmiJdbc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/azam/Desktop/ATS/ojdbc5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/azam/Desktop/ATS/javadb/lib/register.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Weka-3-7/weka.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Weka-3-7/weka-src.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

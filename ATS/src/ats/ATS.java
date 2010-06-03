@@ -1,22 +1,22 @@
 package ats;
 
-import java.io.File;
-
-import weka.core.converters.CSVLoader;
-
 public class ATS {
-	
-	private File jblu;
-	private CSVLoader loader = new CSVLoader();
-	
-	
-	
-	loader.setSource(jblu);
-	
+
 	public ATS() {
 		super();
 	}
-	
-	
+
+	public void runATS() {
+
+		DataSet dataSet = new DataSet();
+		dataSet.generateDataSet();
+	}
+
+	public static void main(String[] args) {
+
+		ATS ats = new ATS();
+		ats.runATS();
+
+	}
 
 }
