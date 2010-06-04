@@ -1,36 +1,41 @@
 package ats.strategies;
 
-import java.util.ArrayList;
+import weka.core.Attribute;
+import weka.core.Instances;
 
-// simple moving average
+// Simple moving average
 public class SMA {
-
-	private int SMA;
-	private ArrayList closingPriceSet;
 
 	public SMA() {
 		super();
 	}
 
 	// Get simple moving average
-	public int getSMA(int SMADuration) {
+	public void getSMA(Instances instances, int SMADuration) {
 
-		closingPriceSet = new ArrayList(SMADuration);
+		// Create simple moving average "SMA" attribute
+		Attribute SMA = new Attribute("SMA");
+		instances.insertAttributeAt(SMA, instances.numAttributes() - 1);
 
-		// Generate closing price set for the past "SMADuration" days
-		for (int i = 0; i < SMADuration; i++) {
-			closingPriceSet.add(i, 0);
-		}
+		double simpleMovingAverage = 0;
+		double sum = 0;
 
 		// Calculate SMA
-		for (int i = 0; i < closingPriceSet.size(); i++) {
-			SMA += (Integer) closingPriceSet.get(i);
-			SMA = SMA / closingPriceSet.size();
+		if (instances.numInstances() >= SMADuration) {
+			for (int i = SMADuration - 1; i < instances.numInstances(); i++) {
+				for (int j = 0; j < SMADuration; j++) {
+					sum += instances.get(i - j).value(
+							instances.numAttributes() - 3);
+				}
+				simpleMovingAverage = sum / SMADuration;
+				sum = 0;
 
+				// Insert SMA into data set
+				instances.get(i).setValue(instances.numAttributes() - 2,
+						simpleMovingAverage);
+
+			}
 		}
 
-		return SMA;
-
 	}
-
 }
