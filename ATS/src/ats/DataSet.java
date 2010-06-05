@@ -3,7 +3,6 @@ package ats;
 import java.util.ArrayList;
 import java.util.List;
 
-import ats.strategies.SMA;
 import ats.strategies.Strategies;
 
 import weka.core.Attribute;
@@ -14,6 +13,8 @@ public class DataSet {
 
 	public static DataSource source = null;
 	public static Instances instances = null;
+	private Instances testDataSet = null;
+	private Instances trainingDataSet = null;
 
 	public DataSet() {
 		super();
@@ -29,6 +30,7 @@ public class DataSet {
 			e.printStackTrace();
 		}
 
+		// Create data set
 		try {
 			instances = source.getDataSet();
 		} catch (Exception e) {
@@ -36,11 +38,10 @@ public class DataSet {
 			e.printStackTrace();
 		}
 
-		// Reverse the order of instances in the data set to place them in chronological order
+		// Reverse the order of instances in the data set to place them in
+		// chronological order
 		for (int i = 0; i < (instances.numInstances() / 2); i++) {
-
 			instances.swap(i, instances.numInstances() - 1 - i);
-
 		}
 
 		// Remove "volume", "low price", "high price" and "opening price" from
@@ -83,7 +84,7 @@ public class DataSet {
 
 		// Make the last attribute be the class
 		instances.setClassIndex(instances.numAttributes() - 1);
-		
+
 		// Calculate and insert technical analysis attributes into data set
 		Strategies strategies = new Strategies();
 		strategies.applyStrategies();
@@ -93,6 +94,41 @@ public class DataSet {
 		System.out.println(instances);
 		System.out.println(instances.numInstances());
 
+	}
+
+	// Create 70% training data set
+	public void generateTrainingDataSet() {
+
+		trainingDataSet = new Instances(instances);
+		int size = trainingDataSet.numInstances();
+
+		for (int i = (int) (size * 0.7); i < size; i++) {
+			trainingDataSet.remove(trainingDataSet.lastInstance());
+		}
+	}
+
+	// Create 30% test data set
+	public void generateTestDataSet() {
+
+		testDataSet = new Instances(instances);
+		int size = testDataSet.numInstances();
+
+		for (int i = 0; i < (int) (size * 0.7); i++) {
+			testDataSet.remove(testDataSet.firstInstance());
+		}
+
+	}
+
+	public Instances getInstances() {
+		return instances;
+	}
+
+	public Instances getTrainingDataSet() {
+		return trainingDataSet;
+	}
+
+	public Instances getTestDataSet() {
+		return testDataSet;
 	}
 
 }

@@ -10,6 +10,9 @@ public class ATS {
 
 		DataSet dataSet = new DataSet();
 		dataSet.generateDataSet();
+		dataSet.generateTrainingDataSet();
+		dataSet.generateTestDataSet();
+
 	}
 
 	public static void main(String[] args) {
