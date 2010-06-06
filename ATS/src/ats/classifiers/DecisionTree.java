@@ -25,6 +25,7 @@ public class DecisionTree {
 			options[0] = "-U"; // unpruned tree
 			decisionTree = new J48(); // new instance of tree
 			decisionTree.setOptions(options);
+			// Train decision tree
 			decisionTree.buildClassifier(trainingData);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -59,13 +60,12 @@ public class DecisionTree {
 	// Evaluate classifier through cross validation
 	public void crossValidate() {
 
-		DataSet dataSet = new DataSet();
-		Instances newData = dataSet.getInstances();
+		Instances newData = new Instances(DataSet.instances);
 
 		try {
 			Evaluation eval = new Evaluation(newData);
-			J48 decisionTree = new J48();
-			eval.crossValidateModel(decisionTree, newData, newData
+			J48 untrainedDecitionTree = new J48();
+			eval.crossValidateModel(untrainedDecitionTree, newData, newData
 					.numInstances(), new Random(1));
 			System.out.println(eval.toSummaryString("\nResults\n\n", false));
 		} catch (Exception e) {

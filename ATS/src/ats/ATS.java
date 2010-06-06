@@ -16,17 +16,17 @@ public class ATS {
 		dataSet.generateDataSet();
 		dataSet.generateTrainingDataSet();
 		dataSet.generateTestDataSet();
-		
+
 		// Build classifiers
 		DecisionTree decisionTree = new DecisionTree();
 		decisionTree.buildDecisionTree(dataSet.getTrainingDataSet());
-		
+
 		// Classify test data set
 		decisionTree.classify(dataSet.getTestDataSet());
-		
-		// Evaluate classifier performance
+
+		// Evaluate classifier through cross validation
 		decisionTree.crossValidate();
-		
+
 	}
 
 	public static void main(String[] args) {

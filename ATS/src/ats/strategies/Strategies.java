@@ -14,8 +14,11 @@ public class Strategies {
 
 		// Simple moving average
 		SMA sma = new SMA();
-		sma.getSMA(new DataSet().getInstances(), 5);
-		
-		
+		sma.getSMA(DataSet.instances, 5);
+
+		// Exponential moving average
+		EMA ema = new EMA();
+		ema.getEMA(DataSet.instances, 10);
+
 	}
 }
