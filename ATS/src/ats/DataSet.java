@@ -44,9 +44,10 @@ public class DataSet {
 			instances.swap(i, instances.numInstances() - 1 - i);
 		}
 
-		// Remove "volume", "low price", "high price" and "opening price" from
-		// data set
+		// Remove "volume", "low price", "high price", "opening price" and
+		// "data" from data set
 		instances.deleteAttributeAt(instances.numAttributes() - 1);
+		instances.deleteAttributeAt(instances.numAttributes() - 2);
 		instances.deleteAttributeAt(instances.numAttributes() - 2);
 		instances.deleteAttributeAt(instances.numAttributes() - 2);
 		instances.deleteAttributeAt(instances.numAttributes() - 2);

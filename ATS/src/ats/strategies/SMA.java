@@ -20,8 +20,8 @@ public class SMA {
 		double simpleMovingAverage = 0;
 		double sum = 0;
 
-		// Calculate SMA
 		if (instances.numInstances() >= SMADuration) {
+			// Calculate SMA
 			for (int i = SMADuration - 1; i < instances.numInstances(); i++) {
 				for (int j = 0; j < SMADuration; j++) {
 					sum += instances.get(i - j).value(
@@ -35,7 +35,26 @@ public class SMA {
 						simpleMovingAverage);
 
 			}
-		}
 
+			// Calculate simple "non-moving" average for
+			// the first "SMADuration - 1" instances
+			for (int i = 0; i < SMADuration - 1; i++) {
+
+				double tempSum = 0;
+				double average = 0;
+
+				for (int j = 0; j <= i; j++) {
+					tempSum += instances.get(j).value(
+							instances.numAttributes() - 3);
+					average = tempSum / (j + 1);
+				}
+
+				instances.get(i).setValue(instances.numAttributes() - 2,
+						average);
+
+				average = 0;
+				tempSum = 0;
+			}
+		}
 	}
 }
