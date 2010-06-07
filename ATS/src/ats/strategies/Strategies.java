@@ -23,10 +23,13 @@ public class Strategies {
 		// Double cross over
 		DCO dco = new DCO();
 		dco.getCrossOver(DataSet.instances, sma, ema);
-		
+
 		// Moving Average Convergence-Divergence
 		MACD macd = new MACD();
 		macd.getMACD(DataSet.instances, ema);
 
+		// 14-Day Relative Strength Index
+		RSI rsi = new RSI();
+		rsi.getRSI(DataSet.instances, 14);
 	}
 }
