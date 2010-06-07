@@ -2,6 +2,7 @@ package ats;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import ats.strategies.Strategies;
 
@@ -103,6 +104,9 @@ public class DataSet {
 		trainingDataSet = new Instances(instances);
 		int size = trainingDataSet.numInstances();
 
+		// Randomize data set
+		trainingDataSet.randomize(trainingDataSet.getRandomNumberGenerator(1));
+		
 		for (int i = (int) (size * 0.7); i < size; i++) {
 			trainingDataSet.remove(trainingDataSet.lastInstance());
 		}
@@ -113,6 +117,9 @@ public class DataSet {
 
 		testDataSet = new Instances(instances);
 		int size = testDataSet.numInstances();
+		
+		// Randomize data set
+		testDataSet.randomize(testDataSet.getRandomNumberGenerator(1));
 
 		for (int i = 0; i < (int) (size * 0.7); i++) {
 			testDataSet.remove(testDataSet.firstInstance());

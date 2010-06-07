@@ -7,13 +7,13 @@ import weka.core.Attribute;
 import weka.core.Instances;
 
 // Double cross over
-public class DoubleCrossOver {
+public class DCO {
 
 	boolean firstCross = true; // First cross over
 	boolean goldenCross = false;
 	boolean deadCross = false;
 
-	public DoubleCrossOver() {
+	public DCO() {
 
 	}
 

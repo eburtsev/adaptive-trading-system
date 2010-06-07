@@ -21,8 +21,12 @@ public class Strategies {
 		ema.getEMA(DataSet.instances, 35);
 
 		// Double cross over
-		DoubleCrossOver doubleCrossOver = new DoubleCrossOver();
-		doubleCrossOver.getCrossOver(DataSet.instances, sma, ema);
+		DCO dco = new DCO();
+		dco.getCrossOver(DataSet.instances, sma, ema);
+		
+		// Moving Average Convergence-Divergence
+		MACD macd = new MACD();
+		macd.getMACD(DataSet.instances, ema);
 
 	}
 }
