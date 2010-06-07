@@ -12,13 +12,17 @@ public class Strategies {
 	// Calculate and insert technical analysis attributes into data set
 	public void applyStrategies() {
 
-		// Simple moving average
+		// 5-Day Simple moving average
 		SMA sma = new SMA();
 		sma.getSMA(DataSet.instances, 5);
 
-		// Exponential moving average
+		// 35-Day Exponential moving average
 		EMA ema = new EMA();
-		ema.getEMA(DataSet.instances, 10);
+		ema.getEMA(DataSet.instances, 35);
+
+		// Double cross over
+		DoubleCrossOver doubleCrossOver = new DoubleCrossOver();
+		doubleCrossOver.getCrossOver(DataSet.instances, sma, ema);
 
 	}
 }

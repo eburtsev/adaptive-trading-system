@@ -1,6 +1,7 @@
 package ats;
 
-import ats.classifiers.DecisionTree;
+import ats.classifiers.decisiontrees.BFDecisionTree;
+import ats.classifiers.decisiontrees.C4_5DecisionTree;
 import weka.classifiers.trees.J48;
 
 public class ATS {
@@ -18,14 +19,19 @@ public class ATS {
 		dataSet.generateTestDataSet();
 
 		// Build classifiers
-		DecisionTree decisionTree = new DecisionTree();
-		decisionTree.buildDecisionTree(dataSet.getTrainingDataSet());
+		C4_5DecisionTree c4_5DecisionTree = new C4_5DecisionTree(); // C4.5 decision tree
+		c4_5DecisionTree.buildDecisionTree(dataSet.getTrainingDataSet());
+
+		//BFDecisionTree bfDecisionTree = new BFDecisionTree(); // Best fit decision tree
+		//bfDecisionTree.buildDecisionTree(dataSet.getTrainingDataSet());
 
 		// Classify test data set
-		decisionTree.classify(dataSet.getTestDataSet());
+		c4_5DecisionTree.classify(dataSet.getTestDataSet()); // C4.5 decision tree
+		//bfDecisionTree.classify(dataSet.getTestDataSet()); // Best fit decision tree
 
 		// Evaluate classifier through cross validation
-		decisionTree.crossValidate();
+		c4_5DecisionTree.crossValidate(); // C4.5 decision tree
+		//bfDecisionTree.crossValidate(); // Best fit decision tree
 
 	}
 

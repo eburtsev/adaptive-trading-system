@@ -1,4 +1,4 @@
-package ats.classifiers;
+package ats.classifiers.decisiontrees;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -6,14 +6,15 @@ import java.util.Random;
 import ats.DataSet;
 
 import weka.classifiers.Evaluation;
-import weka.classifiers.trees.J48;
+import weka.classifiers.trees.BFTree;
 import weka.core.Instances;
 
-public class DecisionTree {
+// Best fit decision tree classifier 
+public class BFDecisionTree {
 
-	private J48 decisionTree = null;
+	private BFTree decisionTree = null;
 
-	public DecisionTree() {
+	public BFDecisionTree() {
 		super();
 	}
 
@@ -21,9 +22,10 @@ public class DecisionTree {
 	public void buildDecisionTree(Instances trainingData) {
 
 		try {
-			String[] options = new String[1];
-			options[0] = "-U"; // unpruned tree
-			decisionTree = new J48(); // new instance of tree
+			String[] options = new String[2];
+			options[0] = "-P <UNPRUNED>"; // Unpruned tree
+			options[0] = "-M <2>"; // The minimal number of instances at the terminal nodes
+			decisionTree = new BFTree(); 
 			decisionTree.setOptions(options);
 			// Train decision tree
 			decisionTree.buildClassifier(trainingData);
@@ -36,14 +38,13 @@ public class DecisionTree {
 	// Classify test data set
 	public void classify(Instances testData) {
 
-		ArrayList<Double> classificationResultSet = new ArrayList<Double>();
-		Double classificationResult = null;
+		ArrayList<double[]> classificationResultSet = new ArrayList<double[]>();
+		double[] classificationResult = null;
 
 		for (int i = 0; i < testData.numInstances(); i++) {
 
 			try {
-				classificationResult = decisionTree.classifyInstance(testData
-						.get(i));
+				classificationResult = decisionTree.distributionForInstance(testData.get(i));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -53,7 +54,7 @@ public class DecisionTree {
 		}
 
 		for (int i = 0; i < classificationResultSet.size(); i++) {
-			System.out.println(classificationResultSet.get(i));
+			System.out.println(classificationResultSet.get(i).toString());
 		}
 	}
 
@@ -64,7 +65,7 @@ public class DecisionTree {
 
 		try {
 			Evaluation eval = new Evaluation(newData);
-			J48 untrainedDecitionTree = new J48();
+			BFTree untrainedDecitionTree = new BFTree();
 			eval.crossValidateModel(untrainedDecitionTree, newData, newData
 					.numInstances(), new Random(1));
 			System.out.println(eval.toSummaryString("\nResults\n\n", false));
