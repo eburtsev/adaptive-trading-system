@@ -1,13 +1,13 @@
-package ats.classifiers;
+package ats.classifiers.bayesiannetworks;
 
 import weka.classifiers.Classifier;
 import weka.core.Capabilities;
 import weka.core.Instance;
 import weka.core.Instances;
 
-public class RBFSupportVector implements Classifier {
+public class ClassifierTemplate implements Classifier {
 
-	public RBFSupportVector() {
+	public ClassifierTemplate() {
 		super();
 	}
 
