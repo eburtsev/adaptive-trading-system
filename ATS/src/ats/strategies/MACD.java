@@ -55,6 +55,9 @@ public class MACD {
 						"centerline");
 			}
 		}
+	}
 
+	public ArrayList<Double> getMACDSet() {
+		return MACDSet;
 	}
 }

@@ -2,13 +2,14 @@ package ats;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import ats.strategies.Strategies;
 
 import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
+
+import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 
 public class DataSet {
 
@@ -104,9 +105,12 @@ public class DataSet {
 		trainingDataSet = new Instances(instances);
 		int size = trainingDataSet.numInstances();
 
+		// Remove closing prize "close" attribute
+		trainingDataSet.deleteAttributeAt(0);
+
 		// Randomize data set
 		trainingDataSet.randomize(trainingDataSet.getRandomNumberGenerator(1));
-		
+
 		for (int i = (int) (size * 0.7); i < size; i++) {
 			trainingDataSet.remove(trainingDataSet.lastInstance());
 		}
@@ -117,13 +121,18 @@ public class DataSet {
 
 		testDataSet = new Instances(instances);
 		int size = testDataSet.numInstances();
-		
+
+		// Remove closing prize "close" attribute
+		testDataSet.deleteAttributeAt(0);
+
 		// Randomize data set
 		testDataSet.randomize(testDataSet.getRandomNumberGenerator(1));
 
 		for (int i = 0; i < (int) (size * 0.7); i++) {
 			testDataSet.remove(testDataSet.firstInstance());
 		}
+
+		System.out.println(testDataSet);
 
 	}
 

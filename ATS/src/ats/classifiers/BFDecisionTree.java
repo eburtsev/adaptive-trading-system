@@ -1,4 +1,4 @@
-package ats.classifiers.decisiontrees;
+package ats.classifiers;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,7 +26,7 @@ public class BFDecisionTree {
 			options[0] = "-P <UNPRUNED>"; // Unpruned tree
 			options[0] = "-M <2>"; // The minimal number of instances at the terminal nodes
 			decisionTree = new BFTree(); 
-			decisionTree.setOptions(options);
+			//decisionTree.setOptions(options);
 			// Train decision tree
 			decisionTree.buildClassifier(trainingData);
 		} catch (Exception e) {
