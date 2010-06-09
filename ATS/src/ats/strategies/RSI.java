@@ -1,4 +1,4 @@
-package ats.strategies;
+  package ats.strategies;
 
 import java.util.ArrayList;
 import java.util.List;

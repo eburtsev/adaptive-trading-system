@@ -28,7 +28,7 @@ public class Strategies {
 		MACD macd = new MACD();
 		macd.getMACD(DataSet.instances, ema);
 
-		// 14-Day Relative Strength Index
+		// 14-dAY Relative Strength Index
 		RSI rsi = new RSI();
 		rsi.getRSI(DataSet.instances, 14);
 	}

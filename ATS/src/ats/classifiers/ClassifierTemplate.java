@@ -1,4 +1,4 @@
-package ats.classifiers.bayesiannetworks;
+package ats.classifiers;
 
 import weka.classifiers.Classifier;
 import weka.core.Capabilities;
