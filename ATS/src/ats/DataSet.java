@@ -13,7 +13,7 @@ import weka.filters.unsupervised.attribute.ReplaceMissingValues;
 
 public class DataSet {
 
-	public static DataSource source = null;
+	private DataSource source = null;
 	public static Instances instances = null;
 	private Instances testDataSet = null;
 	private Instances trainingDataSet = null;
@@ -132,12 +132,11 @@ public class DataSet {
 			testDataSet.remove(testDataSet.firstInstance());
 		}
 
-		System.out.println(testDataSet);
-
 	}
 
 	public Instances getInstances() {
-		return instances;
+		Instances instancesCopy = new Instances(instances);
+		return instancesCopy;
 	}
 
 	public Instances getTrainingDataSet() {

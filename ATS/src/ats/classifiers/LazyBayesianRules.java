@@ -4,31 +4,25 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import ats.DataSet;
-
 import weka.classifiers.Evaluation;
-import weka.classifiers.trees.BFTree;
+import weka.classifiers.lazy.LBR;
+
 import weka.core.Instances;
 
-// Best fit decision tree classifier 
-public class BFDecisionTree {
+public class LazyBayesianRules {
 
-	private BFTree decisionTree = null;
+	private LBR lbr = null;
 
-	public BFDecisionTree() {
+	public LazyBayesianRules() {
 		super();
 	}
 
 	// Build classifier
-	public void buildDecisionTree(Instances trainingData) {
+	public void buildLBR(Instances trainingData) {
 
 		try {
-			String[] options = new String[2];
-			options[0] = "-P <UNPRUNED>"; // Unpruned tree
-			options[0] = "-M <2>"; // The minimal number of instances at the terminal nodes
-			decisionTree = new BFTree(); 
-			//decisionTree.setOptions(options);
-			// Train decision tree
-			decisionTree.buildClassifier(trainingData);
+			lbr = new LBR();
+			lbr.buildClassifier(trainingData);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,7 +38,8 @@ public class BFDecisionTree {
 		for (int i = 0; i < testData.numInstances(); i++) {
 
 			try {
-				classificationResult = decisionTree.distributionForInstance(testData.get(i));
+				classificationResult = lbr.distributionForInstance(testData
+						.get(i));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -54,7 +49,7 @@ public class BFDecisionTree {
 		}
 
 		for (int i = 0; i < classificationResultSet.size(); i++) {
-			System.out.println(classificationResultSet.get(i).toString());
+			System.out.println(classificationResultSet.get(i));
 		}
 	}
 
@@ -63,11 +58,14 @@ public class BFDecisionTree {
 
 		Instances newData = new Instances(new DataSet().getInstances());
 
+		// Remove closing price "close" attribute
+		newData.deleteAttributeAt(0);
+
 		try {
 			Evaluation eval = new Evaluation(newData);
-			BFTree untrainedDecitionTree = new BFTree();
-			eval.crossValidateModel(untrainedDecitionTree, newData, newData
-					.numInstances(), new Random(1));
+			LBR lbr = new LBR();
+			eval.crossValidateModel(lbr, newData, newData.numInstances(),
+					new Random(1));
 			System.out.println(eval.toSummaryString("\nResults\n\n", false));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
