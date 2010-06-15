@@ -31,5 +31,6 @@ public class Strategies {
 		// 14-dAY Relative Strength Index
 		RSI rsi = new RSI();
 		rsi.getRSI(DataSet.instances, 14);
+
 	}
 }

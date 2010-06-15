@@ -1,53 +1,52 @@
 package ats.classifiers;
 
 import java.awt.BorderLayout;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JFrame;
 
+import weka.classifiers.Evaluation;
+import weka.classifiers.bayes.BayesianLogisticRegression;
+import weka.classifiers.trees.J48;
+import weka.core.Instances;
+import weka.gui.graphvisualizer.GraphVisualizer;
+import weka.gui.treevisualizer.PlaceNode2;
+import weka.gui.treevisualizer.TreeVisualizer;
 import ats.DataSet;
 
-import weka.classifiers.Evaluation;
-import weka.classifiers.bayes.BayesNet;
-import weka.core.Instances;
-import weka.gui.graphvisualizer.BIFFormatException;
-import weka.gui.graphvisualizer.GraphVisualizer;
+public class BayesNetwork {
 
-public class BayesianNetwork {
+	private BayesianLogisticRegression bayesNet = null;
 
-	private BayesNet bayesNet = null;
-
-	public BayesianNetwork() {
+	public BayesNetwork() {
 		super();
 	}
-	
+
 	// Build classifier
 	public void buildBayesNet(Instances trainingData) {
-		
+
 		try {
-			String[] options = new String[2];
-			options[0] = "-Q weka.classifiers.bayes.net.search.SearchAlgorithm"; // Search algorithm
-			options[1] = "-E weka.classifiers.bayes.net.estimate.SimpleEstimator"; // Estimator algorithm
-			bayesNet = new BayesNet(); 
-			bayesNet.setOptions(options);
-			bayesNet.buildClassifier(trainingData); // Train classifier
+			bayesNet = new BayesianLogisticRegression(); // new instance of
+															// bayesian network
+			bayesNet.buildClassifier(trainingData);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	// Classify test data set
 	public void classify(Instances testData) {
-		
-		ArrayList<double[]> classificationResultSet = new ArrayList<double[]>();
-		double[] classificationResult = null;
+
+		ArrayList<Double> classificationResultSet = new ArrayList<Double>();
+		Double classificationResult = null;
 
 		for (int i = 0; i < testData.numInstances(); i++) {
 
 			try {
-				classificationResult = bayesNet.distributionForInstance(testData
+				classificationResult = bayesNet.classifyInstance(testData
 						.get(i));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -67,16 +66,13 @@ public class BayesianNetwork {
 
 		Instances newData = new Instances(new DataSet().getInstances());
 
-		// Remove closing prize "close" attribute
+		// Remove closing price "close" attribute
 		newData.deleteAttributeAt(0);
-		
-		// Randomize data set
-		newData.randomize(newData.getRandomNumberGenerator(1));
 
 		try {
 			Evaluation eval = new Evaluation(newData);
-			BayesNet untrainedBayesNet = new BayesNet();
-			eval.crossValidateModel(untrainedBayesNet, newData, newData
+			BayesianLogisticRegression untrainedDecitionTree = new BayesianLogisticRegression();
+			eval.crossValidateModel(untrainedDecitionTree, newData, newData
 					.numInstances(), new Random(1));
 			System.out.println(eval.toSummaryString("\nResults\n\n", false));
 		} catch (Exception e) {
@@ -84,28 +80,16 @@ public class BayesianNetwork {
 			e.printStackTrace();
 		}
 	}
+
 	
-	public void getInternalModel(Instances trainingData) {
-		
-		// train classifier
+	  public void getInternalModel(Instances trainingData) {
+	  
+		/*  
 		BayesNet cls = new BayesNet();
-		try {
-			cls.buildClassifier(trainingData);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		cls.buildClassifier(data);
 		// display graph
 		GraphVisualizer gv = new GraphVisualizer();
-		try {
-			gv.readBIF(cls.graph());
-		} catch (BIFFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		gv.readBIF(cls.graph());
 		JFrame jf = new JFrame("BayesNet graph");
 		jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		jf.setSize(800, 600);
@@ -114,6 +98,9 @@ public class BayesianNetwork {
 		jf.setVisible(true);
 		// layout graph
 		gv.layoutGraph();
-	}
+		*/  
+	  
+	  }
+	 
 
 }

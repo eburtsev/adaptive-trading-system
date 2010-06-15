@@ -1,7 +1,6 @@
 package ats.classifiers;
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,33 +8,29 @@ import java.util.Random;
 import javax.swing.JFrame;
 
 import ats.DataSet;
-
 import weka.classifiers.Evaluation;
 import weka.classifiers.trees.J48;
+import weka.classifiers.trees.NBTree;
 import weka.core.Instances;
 import weka.gui.treevisualizer.PlaceNode2;
 import weka.gui.treevisualizer.TreeVisualizer;
 
-// C4.5 decision tree classifier 
-public class C4_5DecisionTree {
+// A decision tree with naive bayes classifiers at the leaves
+public class NaiveBayesTree {
 
-	private J48 decisionTree = null;
+	private NBTree nbt = null;
 	ArrayList<Double> classificationResultSet = new ArrayList<Double>();
 
-	public C4_5DecisionTree() {
+	public NaiveBayesTree() {
 		super();
 	}
 
 	// Build classifier
-	public void buildDecisionTree(Instances trainingData) {
+	public void buildNBTree(Instances trainingData) {
 
 		try {
-			String[] options = new String[1];
-			options[0] = "-U"; // unpruned tree
-			decisionTree = new J48(); // new instance of tree
-			decisionTree.setOptions(options);
-			// Train decision tree
-			decisionTree.buildClassifier(trainingData);
+			nbt = new NBTree();
+			nbt.buildClassifier(trainingData);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,8 +45,7 @@ public class C4_5DecisionTree {
 		for (int i = 0; i < testData.numInstances(); i++) {
 
 			try {
-				classificationResult = decisionTree.classifyInstance(testData
-						.get(i));
+				classificationResult = nbt.classifyInstance(testData.get(i));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -59,9 +53,9 @@ public class C4_5DecisionTree {
 
 			classificationResultSet.add(i, classificationResult);
 		}
-
+		
 		for (int i = 0; i < classificationResultSet.size(); i++) {
-			System.out.println("C4_5Tree:" + classificationResultSet.get(i));
+			System.out.println("NBTree:" + classificationResultSet.get(i));
 		}
 	}
 
@@ -74,8 +68,8 @@ public class C4_5DecisionTree {
 
 		try {
 			Evaluation eval = new Evaluation(newData);
-			J48 untrainedDecitionTree = new J48();
-			eval.crossValidateModel(untrainedDecitionTree, newData, newData
+			NBTree untrainedNBTree = new NBTree();
+			eval.crossValidateModel(untrainedNBTree, newData, newData
 					.numInstances(), new Random(1));
 			System.out.println(eval.toSummaryString("\nResults\n\n", false));
 		} catch (Exception e) {
@@ -88,7 +82,7 @@ public class C4_5DecisionTree {
 
 		try {
 			// train classifier
-			J48 cls = new J48();
+			NBTree cls = new NBTree();
 			cls.buildClassifier(trainingData);
 			// display tree
 			TreeVisualizer tv = new TreeVisualizer(null, cls.graph(),
