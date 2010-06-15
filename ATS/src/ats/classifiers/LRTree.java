@@ -29,6 +29,7 @@ public class LRTree {
 
 		try {
 			lrTree = new LMT();
+			// Train lrTree classifier
 			lrTree.buildClassifier(trainingData);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -53,9 +54,6 @@ public class LRTree {
 			classificationResultSet.add(i, classificationResult);
 		}
 
-		for (int i = 0; i < classificationResultSet.size(); i++) {
-			System.out.println("LRTree:" + classificationResultSet.get(i));
-		}
 	}
 
 	// Evaluate classifier through cross validation
@@ -103,6 +101,7 @@ public class LRTree {
 		}
 	}
 
+	// Get classification result
 	public ArrayList<Double> getClassificationResultSet() {
 		return classificationResultSet;
 	}

@@ -9,8 +9,6 @@ import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.converters.ConverterUtils.DataSource;
 
-import weka.filters.unsupervised.attribute.ReplaceMissingValues;
-
 public class DataSet {
 
 	private DataSource source = null;
@@ -111,9 +109,6 @@ public class DataSet {
 		// Randomize data set
 		trainingDataSet.randomize(trainingDataSet.getRandomNumberGenerator(1));
 
-		for (int i = (int) (size * 0.7); i < size; i++) {
-			trainingDataSet.remove(trainingDataSet.lastInstance());
-		}
 	}
 
 	// Create 30% test data set
@@ -127,10 +122,6 @@ public class DataSet {
 
 		// Randomize data set
 		testDataSet.randomize(testDataSet.getRandomNumberGenerator(1));
-
-		for (int i = 0; i < (int) (size * 0.7); i++) {
-			testDataSet.remove(testDataSet.firstInstance());
-		}
 
 	}
 

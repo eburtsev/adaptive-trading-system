@@ -1,7 +1,6 @@
 package ats.classifiers;
 
 import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -60,9 +59,6 @@ public class C4_5DecisionTree {
 			classificationResultSet.add(i, classificationResult);
 		}
 
-		for (int i = 0; i < classificationResultSet.size(); i++) {
-			System.out.println("C4_5Tree:" + classificationResultSet.get(i));
-		}
 	}
 
 	// Evaluate classifier through cross validation
@@ -110,6 +106,7 @@ public class C4_5DecisionTree {
 		}
 	}
 
+	// Get classification result
 	public ArrayList<Double> getClassificationResultSet() {
 		return classificationResultSet;
 	}

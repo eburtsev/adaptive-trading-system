@@ -9,7 +9,6 @@ import javax.swing.JFrame;
 
 import ats.DataSet;
 import weka.classifiers.Evaluation;
-import weka.classifiers.trees.J48;
 import weka.classifiers.trees.NBTree;
 import weka.core.Instances;
 import weka.gui.treevisualizer.PlaceNode2;
@@ -30,6 +29,7 @@ public class NaiveBayesTree {
 
 		try {
 			nbt = new NBTree();
+			// Train NBTree
 			nbt.buildClassifier(trainingData);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -52,10 +52,6 @@ public class NaiveBayesTree {
 			}
 
 			classificationResultSet.add(i, classificationResult);
-		}
-		
-		for (int i = 0; i < classificationResultSet.size(); i++) {
-			System.out.println("NBTree:" + classificationResultSet.get(i));
 		}
 	}
 
@@ -104,6 +100,7 @@ public class NaiveBayesTree {
 		}
 	}
 
+	// Get classification result
 	public ArrayList<Double> getClassificationResultSet() {
 		return classificationResultSet;
 	}
