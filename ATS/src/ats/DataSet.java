@@ -24,7 +24,7 @@ public class DataSet {
 
 		// Read all the instances in the file (ARFF, CSV, XRFF, ...)
 		try {
-			source = new DataSource("data\\jblu.csv");
+			source = new DataSource("data\\bne.csv");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
